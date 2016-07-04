@@ -4,6 +4,6 @@ h2{
 p{
 	color:blue;
 }
-button{
+button.active{
 	color:green;
 }
