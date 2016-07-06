@@ -17,26 +17,30 @@ public class IndexController {
 
 	
 	@RequestMapping("/login")
-	public String login() {
-	
+	public String login(HttpServletRequest request) {
+		
 		return "login";
 	}
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public String index(@RequestParam("username")  String username,
 			             @RequestParam("password") String password,Model model,
-			             HttpServletRequest request) {
+			            // @RequestParam("next") String next,
+			             HttpSession session) {
 		
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 
 		model.addAttribute("username",username);
 		model.addAttribute("posts", Data.posts);
+		
+		String next = (String) session.getAttribute("next");
+		if(next == null) next = "/index";
 		
 		for(Users user :Data.users) {
 			if(username.equals(user.getUsername())) {
 				if(password.equals(user.getPassword())) {
 					session.setAttribute("username", username);
-					return "redirect:/index";
+					return "redirect:".concat(next);
 				}else {
 					model.addAttribute("Error", "Password");
 					return "error";
@@ -52,9 +56,9 @@ public class IndexController {
 	@RequestMapping("/create")
 	public String create(HttpSession session) {
 		
-		if(session.getAttribute("username") == null) {
-			return "redirect:/login";
-		}
+//		if(session.getAttribute("username") == null) {
+//			return "redirect:/login";
+//		}
 		
 		return "create";
 	}
@@ -75,9 +79,9 @@ public class IndexController {
 		model.addAttribute("username",session.getAttribute("username"));
 		model.addAttribute("posts",Data.posts);
 		
-		if(session.getAttribute("username") == null) {
-			return "redirect:/login";
-		}
+//		if(session.getAttribute("username") == null) {
+//			return "redirect:/login";
+//		}
 		return "index";
 	}
 	

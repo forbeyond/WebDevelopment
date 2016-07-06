@@ -9,6 +9,8 @@ public class Data {
 	
 	public static List<Users> users = new ArrayList<Users>();
 	
+	public static byte[] avatar = null;
+	
 	static{
 		posts.add(new Post("title1","content1"));
 		posts.add(new Post("title2","content2"));

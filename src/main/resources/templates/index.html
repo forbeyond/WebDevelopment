@@ -10,10 +10,12 @@
 	<p>This is my page</p>
 	<button class="active">hide</button>
 	<p th:text="${username}"></p>
+	<img src="/avatar"/>
+	<button class="avatar"><a href="/upload">修改头像</a></button>
 	<div>
 		<div class="blog-post" th:each="post : ${posts}">
 			<div>
-				<h3 class="blog-post-title"><a href="#" th:text="${post.title}"></a></h3>
+				<h3 class="blog-post-title"><a th:href="@{'/post/'+${post.id}}" th:text="${post.title}"></a></h3>
 				<small class="blog-post-meta" th:text="${#dates.format(post.created,'yyyy-MM-dd HH:mm:ss')}"></small>
 			</div>
 			<p class="blog-post-content" th:text="${post.content}"></p>
